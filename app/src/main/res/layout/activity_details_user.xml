@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsUserActivity">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userDetailsTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Details"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="#E4E4E4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+ <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/userDetailsTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="01774362950"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0.0"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/userPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Narayanganj,BD"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/userAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dhaka,Khulna"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/userAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
