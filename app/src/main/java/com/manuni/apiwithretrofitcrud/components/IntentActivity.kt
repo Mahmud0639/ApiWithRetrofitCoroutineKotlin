@@ -43,7 +43,7 @@ class IntentActivity : AppCompatActivity() {
          */
 
         binding.nextActivityBtn.setOnClickListener {
-            val intent = Intent(this,SecondActivity::class.java)
+            val intent = Intent(this,ServiceActivity::class.java)
             startActivity(intent)
         }
     }
