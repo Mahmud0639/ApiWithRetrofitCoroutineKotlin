@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -22,9 +23,11 @@ import com.manuni.apiwithretrofitcrud.adapters.UserAdapter
 import com.manuni.apiwithretrofitcrud.databinding.ActivityMainBinding
 import com.manuni.apiwithretrofitcrud.databinding.AddUserAlertBinding
 import com.manuni.apiwithretrofitcrud.models.UserModel
+import com.manuni.apiwithretrofitcrud.models.fileupload.FileUpload
 import com.manuni.apiwithretrofitcrud.models.locations.LocationModel
 import com.manuni.apiwithretrofitcrud.networkservices.RetrofitClient
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -57,6 +60,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listeners() {
+
+        binding.photoUploadBtn.setOnClickListener {
+            val i = Intent(this,FileUploadActivity::class.java)
+            startActivity(i)
+        }
+
+
         binding.addUserBtn.setOnClickListener {
             addUserAlert(true, null)
         }
@@ -124,8 +134,11 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun addUserAlert(isSave: Boolean, userModel: UserModel?) {
+        tempSelectedLocationIndexes.clear()
+
         val bindingAlert : AddUserAlertBinding
         val locationsForServer = arrayListOf<Int>()
+        val oldLocaIds = arrayListOf<Int>()
         AlertDialog.Builder(this).create().apply {
              bindingAlert = AddUserAlertBinding.inflate(layoutInflater)
             setView(bindingAlert.root)
@@ -140,12 +153,23 @@ class MainActivity : AppCompatActivity() {
                 )//for edittext we need to pass setText(),,,because it required String,,etName.text required Editable that can't be directly converted String to Editable
                 //we can like this way if we want to stay on the previous system
                 //bindingAlert.etName.text = Editable.Factory.getInstance().newEditable(userModel?.name)
-                bindingAlert.etPhone.text =
-                    Editable.Factory.getInstance().newEditable(userModel?.phoneNumber ?: "")
+                bindingAlert.etPhone.text = Editable.Factory.getInstance().newEditable(userModel?.phoneNumber ?: "")
                 bindingAlert.etAmount.setText(userModel?.amount.toString())
                 bindingAlert.etCity.setText(userModel?.address?.city ?: "")
                 bindingAlert.etCounty.setText(userModel?.address?.country ?: "")
 
+                var loc = ""
+                userModel?.location?.forEachIndexed { index, location ->
+                    if (index!=0){
+                        loc += ", "
+                    }
+                    loc += location.locationName?:""
+                    location.locationId?.let {
+                        oldLocaIds.add(it)
+                    }
+                }
+
+                bindingAlert.locationsTxt.text = loc
 
             }
 
@@ -154,13 +178,32 @@ class MainActivity : AppCompatActivity() {
             }
 
             bindingAlert.locationBtn.setOnClickListener {
+
+               checkedBox = BooleanArray(locationsList.size)
+                locationsList.forEachIndexed { index, locationModel ->
+                    locationModel.id?.toInt().let {
+                        if (oldLocaIds.contains(it)){
+                            checkedBox[index] = true
+                        }
+                    }
+                }
+                
                 showLocationChooser(locationsList,checkedBox, selected = {s,ids->
                     bindingAlert.locationsTxt.text = s
                     locationsForServer.clear()
                     locationsForServer.addAll(ids)
                 }, newLocation = {
+                    //we want to refresh our checkbox alert dialog to get new data
+                    //so we to click on the addLocationBtn programmatically
+                    bindingAlert.locationBtn.performClick()
+                }, getDialog = {
+                    //here we dismiss the AlertDialog of the save user
+                    //bindingAlert.cancelBtn.performClick()
 
-                })
+                    //we can also show the location dialog
+                    bindingAlert.locationBtn.performClick()
+
+                } )
             }
 
             bindingAlert.saveBtn.setOnClickListener {
@@ -195,6 +238,7 @@ class MainActivity : AppCompatActivity() {
                     dismiss()
                 }
             }
+
         }.show()
 
         bindingAlert.progress.visibility = View.VISIBLE
@@ -330,7 +374,7 @@ class MainActivity : AppCompatActivity() {
     private var tempSelectedLocationIndexes = arrayListOf<Int>()
     private var checkedIndex = BooleanArray(0)
 
-    private fun showLocationChooser(mLocations:List<LocationModel>,checkedItems:BooleanArray,selected:(String,ArrayList<Int>)->Unit,newLocation:()->Unit){
+    private fun showLocationChooser(mLocations:List<LocationModel>,checkedItems:BooleanArray,selected:(String,ArrayList<Int>)->Unit,newLocation:()->Unit,getDialog:()->Unit){
         AlertDialog.Builder(this).apply {
             setTitle("Location you visited")
             setCancelable(false)
@@ -393,7 +437,41 @@ class MainActivity : AppCompatActivity() {
 
             setNeutralButton("Add Location"){ p0,p1 ->
 
+                getDialog()
+
+                alertNewLocation {
+                    newLocation()
+
+                }
             }
+        }.show()
+    }
+
+    private fun alertNewLocation(success: () -> Unit){
+        AlertDialog.Builder(this).apply {
+            setTitle("Enter location name")
+            val et = EditText(this@MainActivity)
+            et.hint = "Location name"
+            setView(et)
+
+            setPositiveButton("Save",object :DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    saveLocation(et.text.toString()){
+                        getLocations {
+                            success()
+                        }
+
+                    }
+                }
+            })
+
+            setNegativeButton("Cancel",object :DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    dialog?.dismiss()
+                }
+            })
+
+
         }.show()
     }
 
@@ -402,7 +480,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
+private fun saveLocation(location:String,success: () -> Unit){
+    lifecycleScope.launch {
+        try {
+            val body = HashMap<String,Any?>().apply {
+                put("locationName",location)
+            }
+            val res = RetrofitClient.retrofit.saveLocation(body)
+            println("SaveLocationResponse: ${res.result}")
+            Toast.makeText(this@MainActivity,"${res.result}",Toast.LENGTH_LONG).show()
+            success()
+        }catch (e:Exception){
+            e.printStackTrace()
+            println("ErrorSaveLocation: ${e.message}")
+        }
 
+    }
+}
 
     private fun performDelete(userModel: UserModel?) {
         try {
@@ -472,4 +566,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

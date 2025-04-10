@@ -40,6 +40,7 @@ class UserAdapter(var items:ArrayList<UserModel>):RecyclerView.Adapter<UserAdapt
         val item = items[position]
         val binding = holder.binding
 
+
         binding.tvName.text = "${item.name}"
         binding.tvPhone.text = "${item.phoneNumber}"
     }

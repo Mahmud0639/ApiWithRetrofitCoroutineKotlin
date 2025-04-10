@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EFECEC"
+    android:padding="4dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgUserUploaded"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_people_outline_24" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Loading..."
+        app:layout_constraintBottom_toTopOf="@id/picName"
+        app:layout_constraintEnd_toStartOf="@+id/imgUserUploaded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Mahamudul Islam" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/picName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        app:layout_constraintBottom_toBottomOf="@+id/imgUserUploaded"
+        app:layout_constraintEnd_toStartOf="@id/imgUserUploaded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userTitle"
+        tools:text="Pic Name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

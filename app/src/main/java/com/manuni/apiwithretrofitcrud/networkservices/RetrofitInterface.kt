@@ -1,15 +1,18 @@
 package com.manuni.apiwithretrofitcrud.networkservices
 
-import com.manuni.apiwithretrofitcrud.models.Location
 import com.manuni.apiwithretrofitcrud.models.ResultModel
 import com.manuni.apiwithretrofitcrud.models.UserModel
+import com.manuni.apiwithretrofitcrud.models.fileupload.FileUpload
+import com.manuni.apiwithretrofitcrud.models.fileupload.FileUploadModel
 import com.manuni.apiwithretrofitcrud.models.locations.LocationModel
-import okhttp3.Response
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 @JvmSuppressWildcards
@@ -44,4 +47,15 @@ interface RetrofitInterface {
     @GET(AllApi.LOCATION)
     suspend fun getLocations():List<LocationModel>
     //suspend fun getLocations():retrofit2.Response<List<Location>>
+
+    @POST(AllApi.LOCATION)
+    suspend fun saveLocation(@Body body:Map<String,Any?>):ResultModel
+
+    @GET(AllApi.UPLOAD_IMAGE)
+    suspend fun getUploadedImageData():List<FileUploadModel>
+
+    //for uploading a file with data we need to write Multipart and Part instead of @Body here
+    @Multipart
+    @POST(AllApi.UPLOAD_IMAGE)
+    suspend fun uploadPhotoData(@Part body:List<MultipartBody.Part>):FileUpload
 }
