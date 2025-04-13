@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".components.ServiceActivity">
 
     <com.google.android.material.button.MaterialButton
@@ -32,4 +32,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stopServiceBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/foregroundBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="Start Foreground"
+        app:layout_constraintEnd_toStartOf="@+id/stopForegroundBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startNotificationBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stopForegroundBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Stop Foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/foregroundBtn"
+        app:layout_constraintTop_toBottomOf="@+id/startNotificationBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Start Bound"
+        app:layout_constraintEnd_toStartOf="@+id/stopBound"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foregroundBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stopBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Bound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/startBound"
+        app:layout_constraintTop_toBottomOf="@+id/stopForegroundBtn" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchBoundGenNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Number"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startBound" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

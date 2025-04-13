@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:allowBackup="true"
@@ -43,6 +45,8 @@
             </intent-filter>
         </activity>
         <service android:exported="false" android:name=".components.MyService"/>
+        <service android:enabled="true" android:foregroundServiceType="dataSync" android:exported="false" android:name=".components.foreground_service.MyServiceForeground"/>
+        <service android:exported="false" android:name=".components.bound_service.MyServiceBound"/>
     </application>
 
 </manifest>
