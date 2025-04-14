@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
@@ -21,6 +21,15 @@
         android:theme="@style/Theme.ApiWithRetrofitCRUD"
         tools:targetApi="31">
         <activity
+            android:name=".components.broadcast_receiver.BroadcastReceiverActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".components.IntentActivity"
             android:exported="false" />
         <activity
@@ -34,19 +43,24 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="false" />
+        <activity
+            android:name=".components.ServiceActivity"
+            android:exported="true">
 
         </activity>
-        <activity android:exported="true" android:name=".components.ServiceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <service android:exported="false" android:name=".components.MyService"/>
-        <service android:enabled="true" android:foregroundServiceType="dataSync" android:exported="false" android:name=".components.foreground_service.MyServiceForeground"/>
-        <service android:exported="false" android:name=".components.bound_service.MyServiceBound"/>
+        <service
+            android:name=".components.MyService"
+            android:exported="false" />
+        <service
+            android:name=".components.foreground_service.MyServiceForeground"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".components.bound_service.MyServiceBound"
+            android:exported="false" />
     </application>
 
 </manifest>

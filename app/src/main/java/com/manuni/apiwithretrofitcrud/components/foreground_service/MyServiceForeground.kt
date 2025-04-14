@@ -39,7 +39,7 @@ class MyServiceForeground : Service() {
 
         val name = intent?.getStringExtra("MY_NAME")?:""
 
-        Log.d(TAG, "onStartCommand: ${name}")
+        Log.d(TAG, "onStartCommand: $name")
         //long running operation(like: audio, video play, download, read-write file, converter like video to mp3 etc long running operation)
         var mJob: Job? = null
         mJob = CoroutineScope(Dispatchers.IO).launch {
