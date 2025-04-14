@@ -23,7 +23,7 @@ class MyBroadcastReceiver:BroadcastReceiver() {
         }
     }
 
-    //this method will ensure that the system has the airplane mode is on state not off
+    //this method will ensure that the system has the airplane mode is on state or off
     private fun isAirPlaneModeOn(context: Context?):Boolean{
         return Settings.System.getInt(context?.contentResolver,Settings.System.AIRPLANE_MODE_ON,0) !=0
     }

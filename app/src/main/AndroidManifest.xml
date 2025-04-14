@@ -21,13 +21,18 @@
         android:theme="@style/Theme.ApiWithRetrofitCRUD"
         tools:targetApi="31">
         <activity
-            android:name=".components.broadcast_receiver.BroadcastReceiverActivity"
+            android:name=".components.broadcast_receiver.custom.CustomBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".components.broadcast_receiver.BroadcastReceiverActivity"
+            android:exported="false">
+
         </activity>
         <activity
             android:name=".components.IntentActivity"
@@ -46,9 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".components.ServiceActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
 
         <service
             android:name=".components.MyService"
