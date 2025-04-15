@@ -25,7 +25,7 @@ class ContentProvidersActivity : AppCompatActivity() {
         }
 
     }
-
+//content provider is used to get data or content from other apps in our app
     private suspend fun getContacts(): List<String>{
         val result:ArrayList<String> = arrayListOf()
 
