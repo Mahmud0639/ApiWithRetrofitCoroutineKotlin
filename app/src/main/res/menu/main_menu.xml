@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_menu_settings"
+        android:title="Settings"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ic_menu_vert"
+        android:title="Main"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:title="About"
+                app:showAsAction="never">
+                <menu>
+                    <item android:id="@+id/about_me"
+                        android:title="About Me"
+                        android:icon="@drawable/ic_menu_settings"/>
+                    <item android:id="@+id/aboutCompany"
+                        android:title="About Company"
+                        android:icon="@drawable/ic_menu_settings"/>
+                </menu>
+            </item>
+            <item
+                android:id="@+id/exit"
+                android:title="Exit"
+                app:showAsAction="never" />
+           <!-- <item
+                android:id="@+id/about"
+                android:title="About"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/about"
+                android:title="About"
+                app:showAsAction="never" />-->
+        </menu>
+    </item>
+</menu>
