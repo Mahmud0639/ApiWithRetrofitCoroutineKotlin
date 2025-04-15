@@ -62,6 +62,7 @@ dependencies {
     implementation("com.github.dhaval2404:imagepicker:2.1")
     implementation("androidx.activity:activity-ktx:1.2.3")
     implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("com.github.MrNouri:DynamicSizes:1.0")
 
 
 }
