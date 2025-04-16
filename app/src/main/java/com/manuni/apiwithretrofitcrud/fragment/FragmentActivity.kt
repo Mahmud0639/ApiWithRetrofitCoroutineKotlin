@@ -31,7 +31,11 @@ class FragmentActivity:AppCompatActivity() {
             /**
              * using fragmentContainerView as fragment container
              */
-            supportFragmentManager.beginTransaction().addToBackStack("MainFragment").add(R.id.fragmentContainer,mainFragment,"MainFragment").commit()
+            supportFragmentManager.beginTransaction().
+            setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit).
+            addToBackStack("MainFragment").
+            add(R.id.fragmentContainer,mainFragment,"MainFragment").
+            commit()
 
 
         }
