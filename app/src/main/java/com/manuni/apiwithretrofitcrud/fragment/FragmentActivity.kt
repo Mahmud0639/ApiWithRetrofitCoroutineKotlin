@@ -15,6 +15,14 @@ class FragmentActivity:AppCompatActivity() {
         setContentView(binding.root)
 
         binding.addFragmentBtn.setOnClickListener {
+
+            //data passing using bundle
+            val bundle = Bundle().apply {
+                putString("MY_NAME","Mahamudul Islam")
+            }
+            mainFragment.arguments = bundle
+
+
             //here binding.frameLayoutContainer will not work,,,because we inflate only constraint layout
             /**
              * using frameLayout as fragment container

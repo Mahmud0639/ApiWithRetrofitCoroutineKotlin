@@ -10,6 +10,14 @@ import com.manuni.apiwithretrofitcrud.databinding.FragmentMainBinding
 
 class MainFragment:Fragment() {
     private lateinit var binding: FragmentMainBinding
+    private var myNameFromActivity:String = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        myNameFromActivity = arguments?.getString("MY_NAME","")?:""
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.inflate(inflater,container,false)
         return binding.root
@@ -18,6 +26,8 @@ class MainFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //all click listener and event here
+
+        binding.fragmentTxt.text = myNameFromActivity
 
         binding.goNextBtn.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.addToBackStack("SecondFragment")?.add(R.id.fragmentContainer,SecondFragment(),"SecondFragment")?.commit()
