@@ -13,4 +13,9 @@
         <item name="tabSelectedTextColor">@color/your_selected_text_color</item>
         <item name="android:background">@color/your_tab_background_color</item>
     </style>
+
+    <style name="MyCustomFABRound" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_30mdp</item>
+    </style>
 </resources>
