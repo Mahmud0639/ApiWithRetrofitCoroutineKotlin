@@ -26,4 +26,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <EditText
+        android:id="@+id/etData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/goNextBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Enter data"
+        android:background="#F2F2F2"
+        android:padding="@dimen/_12mdp"
+        app:layout_constraintEnd_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,8 @@ class MainFragment:Fragment() {
     private lateinit var binding: FragmentMainBinding
     private var myNameFromActivity:String = ""
 
+    private val secondFragment:SecondFragment = SecondFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +32,12 @@ class MainFragment:Fragment() {
         binding.fragmentTxt.text = myNameFromActivity
 
         binding.goNextBtn.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.addToBackStack("SecondFragment")?.add(R.id.fragmentContainer,SecondFragment(),"SecondFragment")?.commit()
+            val bundle = Bundle().apply {
+                putString("MY_NAME","$myNameFromActivity ${binding.etData.text}")
+            }
+            secondFragment.arguments = bundle
+
+            activity?.supportFragmentManager?.beginTransaction()?.addToBackStack("SecondFragment")?.add(R.id.fragmentContainer,secondFragment,"SecondFragment")?.commit()
         }
     }
 }
