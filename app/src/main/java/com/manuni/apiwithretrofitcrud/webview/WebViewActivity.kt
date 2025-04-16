@@ -3,6 +3,10 @@ package com.manuni.apiwithretrofitcrud.webview
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,13 +14,26 @@ import com.manuni.apiwithretrofitcrud.databinding.ActivityWebViewBinding
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebViewBinding
+    private val TAG = "WebViewClient"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        //error handling
+        //we can get the overload method like this in the activity without creating any any separated class
+        /*binding.webView.webViewClient = object : WebViewClient(){
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                super.onReceivedError(view, request, error)
+                Log.d(TAG, "Error: $error")
+            }
+        }*/
+
+
         //loadUrl
-        binding.webView.webViewClient = WebViewClient()//it will load url in the app not another app
+        //binding.webView.webViewClient = WebViewClient()//it will load url in the app not another app
+        binding.webView.webViewClient = MyWebViewClient()//now we can use the class that extends WebViewClient
         binding.webView.loadUrl("https://google.com")
         binding.webView.settings.javaScriptEnabled = true//for showing any type of menu in the website
         //zoom
@@ -66,5 +83,13 @@ class WebViewActivity : AppCompatActivity() {
          * we can give a message to the user,,No internet as snack bar
          */
 
+    }
+    inner class MyWebViewClient:WebViewClient(){
+        override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            super.onReceivedError(view, request, error)
+            //showing the html file as error page
+            view?.loadUrl("file:///android_asset/web/index.html")
+            Log.d(TAG, "Error: $error")
+        }
     }
 }
