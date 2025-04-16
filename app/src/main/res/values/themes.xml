@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.ApiWithRetrofitCRUD" parent="Base.Theme.ApiWithRetrofitCRUD" />
+
+    <style name="CustomTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/your_indicator_color</item>
+        <item name="tabTextColor">@color/your_unselected_text_color</item>
+        <item name="tabSelectedTextColor">@color/your_selected_text_color</item>
+        <item name="android:background">@color/your_tab_background_color</item>
+    </style>
 </resources>
