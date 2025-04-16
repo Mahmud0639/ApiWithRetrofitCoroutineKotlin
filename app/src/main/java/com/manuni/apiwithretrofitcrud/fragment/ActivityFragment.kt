@@ -2,10 +2,11 @@ package com.manuni.apiwithretrofitcrud.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.manuni.apiwithretrofitcrud.MyConstants
 import com.manuni.apiwithretrofitcrud.R
 import com.manuni.apiwithretrofitcrud.databinding.ActivityFragmentBinding
 
-class FragmentActivity:AppCompatActivity() {
+class ActivityFragment:AppCompatActivity() {
     private lateinit var binding: ActivityFragmentBinding
     private val mainFragment:MainFragment = MainFragment()
 
@@ -16,12 +17,13 @@ class FragmentActivity:AppCompatActivity() {
 
         binding.addFragmentBtn.setOnClickListener {
 
+
             //data passing using bundle
             val bundle = Bundle().apply {
-                putString("MY_NAME","Mahamudul Islam")
+                putString(MyConstants.MY_NAME,"Mahamudul Islam")
             }
-            mainFragment.arguments = bundle
 
+            addFragment(this,bundle,mainFragment)
 
             //here binding.frameLayoutContainer will not work,,,because we inflate only constraint layout
             /**
@@ -31,22 +33,19 @@ class FragmentActivity:AppCompatActivity() {
             /**
              * using fragmentContainerView as fragment container
              */
-            supportFragmentManager.beginTransaction().
+           /* supportFragmentManager.beginTransaction().
             setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit).
             addToBackStack("MainFragment").
             add(R.id.fragmentContainer,mainFragment,"MainFragment").
             commit()
-
+*/
 
         }
 
         binding.removeFragmentBtn.setOnClickListener {
-            supportFragmentManager.beginTransaction().remove(mainFragment).commit()
+          //  supportFragmentManager.beginTransaction().remove(mainFragment).commit()
             //since we need to remove the backstack so we can write the above code like this way:
-            supportFragmentManager.apply {
-                beginTransaction().remove(mainFragment).commit()
-                popBackStack()
-            }
+            removeFragment(this,mainFragment)
         }
     }
 }
