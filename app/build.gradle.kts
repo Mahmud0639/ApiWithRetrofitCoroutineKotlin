@@ -64,5 +64,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.3")
     implementation("com.github.MrNouri:DynamicSizes:1.0")
 
+    implementation("androidx.security:security-crypto:1.1.0-alpha07")
+
 
 }

@@ -1,26 +1,19 @@
 package com.manuni.apiwithretrofitcrud
 
+import com.manuni.apiwithretrofitcrud.kotlin.oop.MyCar
+
 fun main(){
-    for (i in 0..5 step 1){
-        println("$i hello")
-    }
+    val myCar = MyCar()
+  val engine =  myCar.Engine()
+    println(engine.printDetails())
 
-    println("---------")
-
-    for (i in 10 downTo 0 step 2){
-        println("$i Mahamud")
-    }
-
-    println("----------")
-
-    val nameList:Array<String> = arrayOf("Mahmud","Mamun","Sourav")
-    for (n in nameList){
-        println(n)
-    }
-
-    println("---------------")
-
-    for (n in nameList.indices){
-        println("$n Index no of: ${nameList[n]}")
-    }
+    //accessing nested class
+    val wheel = MyCar.Wheel()
+    println(wheel.printDetailsOfWheel())
 }
+
+/*
+class MyCar(val color:String, val brandName: String, val speed: Double){
+    constructor(color: String,brandName: String):this(color,brandName,0.0)
+    constructor(color: String):this(color,"",0.0)
+}*/
